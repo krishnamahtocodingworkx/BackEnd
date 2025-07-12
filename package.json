@@ -1,0 +1,36 @@
+{
+  "name": "plant-book-backend",
+  "version": "1.0.0",
+  "description": "backend for plant book app",
+  "keywords": [
+    "plant",
+    "book"
+  ],
+  "homepage": "https://github.com/krishnamahtodev/plant-book-backend#readme",
+  "bugs": {
+    "url": "https://github.com/krishnamahtodev/plant-book-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krishnamahtodev/plant-book-backend.git"
+  },
+  "license": "ISC",
+  "author": "krishna mahto",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js",
+    "build": "echo 'No build step needed'",
+    "start": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.3",
+    "nodemon": "^3.1.10"
+  }
+}
