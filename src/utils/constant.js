@@ -8,6 +8,7 @@ export const countryCodePattern = /^\+[0-9]+$/;
 
 export const CONSTANT = {
   PASSWORD_HASH_SALT: "plant-book",
+  OTP_EXPIRATION_TIME: 5 * 60 * 1000, // 10 minutes
 };
 
 export const ROLE = Object.freeze({

@@ -37,3 +37,9 @@ export const validate = (schema, source = REQUEST_OBJECT.BODY) => {
     }
   };
 };
+
+export const generateOtp = () => {
+  const otp = Math.floor(1000 + Math.random() * 9000).toString(); // 4-digit OTP
+  const expiresAt = new Date(Date.now() + CONSTANT.OTP_EXPIRATION_TIME);
+  return { otp, expiresAt };
+};

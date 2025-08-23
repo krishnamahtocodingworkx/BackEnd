@@ -20,3 +20,8 @@ export const signupSchema = Joi.object({
     .valid(...Object.values(ROLE))
     .optional(),
 });
+
+export const verifyEmailSchema = Joi.object({
+  email: Joi.string().trim().pattern(emailPattern).required(),
+  otp: Joi.string().length(4).required(),
+});
