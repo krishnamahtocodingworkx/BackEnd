@@ -1,34 +1,28 @@
+import { MONGODB_URL, PORT } from "./utils/config.js";
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import cors from "cors";
 import mainRoutes from "./routes/index.route.js";
+import dbConnect from "./utils/dbConnect.js";
 
 const app = express();
-dotenv.config();
+// Middleware
 app.use(express.json());
 app.use(cors({ origin: "*" }));
-const port = process.env.PORT || 9000;
 
+// Routes
 app.use("/api/v1/", mainRoutes);
 
-app.get("/check", (req, res) => {
+app.get("/", (req, res) => {
   res.json({
-    message: "Server is running",
+    message: "Welcome to Plant Book API",
     code: 200,
     data: {},
   });
 });
 
-mongoose
-  .connect(process.env.MONGODB_URL)
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.error("Error connecting to MongoDB:", err);
-  });
+dbConnect();
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
 });
