@@ -1,5 +1,7 @@
 import { createHmac } from "crypto";
 import { CONSTANT, REQUEST_OBJECT } from "./constant.js";
+import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "./config.js";
 export const successResponse = (data, message, statusMessage, code) => ({
   success: true,
   message,
@@ -20,6 +22,10 @@ export const hashData = (data, salt = CONSTANT.PASSWORD_HASH_SALT) => {
   return createHmac("sha256", salt).update(data).digest("hex");
 };
 
+export const generateToken = (tokenData) => {
+  const token = jwt.sign(tokenData, JWT_SECRET);
+  return token;
+};
 export const validate = (schema, source = REQUEST_OBJECT.BODY) => {
   return async (req, res, next) => {
     try {

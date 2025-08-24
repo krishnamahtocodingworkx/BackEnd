@@ -92,6 +92,8 @@ export const ExceptionMessage = Object.freeze({
   DEFAULT_MESSAGE: "An unknown error occurred, please try again later.",
   EMAIL_ALREADY_EXIST: "This email is already registered.",
   VERIFICATION_FAILED: "Email verification failed. Please try again.",
+  EMAIL_NOT_VERIFIED:
+    " Your email is not verified. Please verify your email to proceed.",
   EMAIL_NOT_EXISTS:
     "Seems like the Email is not registered with us. Please try to login using another Email",
   LOGIN_FAILED: "Login failed. Please check your credentials.",
@@ -111,6 +113,7 @@ export const ExceptionMessage = Object.freeze({
   USERNAME_ALREADY_EXIST: "Username already exist.",
   MOBILE_NO_ALREADY_EXIST: "Mobile number already exist.",
   OTP_INVALID: "Invalid OTP",
+  OTP_NOT_FOUND: "OTP not found, please request a new one.",
   PET_NOT_EXISTS: "Pet does not exist.",
   NOT_AUTHORISED: "You are not authorized to perform this action.",
   POST_NOT_EXISTS: "Post does not exist.",

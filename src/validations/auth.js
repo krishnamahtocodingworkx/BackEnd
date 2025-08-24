@@ -25,3 +25,19 @@ export const verifyEmailSchema = Joi.object({
   email: Joi.string().trim().pattern(emailPattern).required(),
   otp: Joi.string().length(4).required(),
 });
+export const verifyEmailOnlySchema = Joi.object({
+  email: Joi.string().trim().pattern(emailPattern).required(),
+});
+
+export const loginSchema = Joi.object({
+  email: Joi.string().trim().pattern(emailPattern).required(),
+  password: Joi.string().pattern(passwordPattern).required(),
+});
+
+export const resetPasswordSchema = Joi.object({
+  email: Joi.string().trim().pattern(emailPattern).required(),
+  newPassword: Joi.string()
+    .pattern(passwordPattern)
+    .required()
+    .messages({ "string.pattern.base": "Invalid password" }),
+});
