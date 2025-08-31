@@ -4,6 +4,7 @@ import {
   forgotPassword,
   loginUser,
   logout,
+  resendOtp,
   resetPassword,
   signup,
   verifyEmail,
@@ -21,6 +22,7 @@ const authRoute = express.Router();
 
 authRoute.post("/signup", validate(signupSchema), signup);
 authRoute.post("/verify-email", validate(verifyEmailSchema), verifyEmail);
+authRoute.post("/resend-otp", validate(verifyEmailOnlySchema), resendOtp);
 authRoute.post("/login", validate(loginSchema), loginUser);
 authRoute.post(
   "/forgot-password",

@@ -80,7 +80,81 @@ export const signup = async (req, res) => {
       );
   }
 };
+// controller for resending OTP
+export const resendOtp = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const isUserExists = await User.findOne({ email: email.toLowerCase() });
+    if (!isUserExists) {
+      return res
+        .status(HttpStatusCode.NOT_FOUND)
+        .json(
+          errorResponse(
+            {},
+            ExceptionMessage.USER_NOT_EXISTS,
+            HttpStatusMessage.NOT_FOUND,
+            HttpStatusCode.NOT_FOUND
+          )
+        );
+    }
+    const otp = await Otp.findOne({ userId: isUserExists._id }).sort({
+      createdAt: -1,
+    });
+    if (!otp || otp.expiresAt < new Date()) {
+      const { otp: newOtp, expiresAt } = generateOtp();
+      const otpData = new Otp({
+        userId: isUserExists._id,
+        otp: newOtp,
+        expiresAt,
+      });
+      await otpData.save();
+      // Send OTP to user's email
+      await mailSender(
+        email,
+        "Resend Email Verification OTP for Plant Book",
+        otpTemplate(newOtp)
+      );
+      return res
+        .status(HttpStatusCode.OK)
+        .json(
+          successResponse(
+            {},
+            SuccessMessage.OTP_RESENT,
+            HttpStatusMessage.OK,
+            HttpStatusCode.OK
+          )
+        );
+    }
 
+    await mailSender(
+      email,
+      "Resend Email Verification OTP for Plant Book",
+      otpTemplate(otp.otp)
+    );
+
+    return res
+      .status(HttpStatusCode.OK)
+      .json(
+        successResponse(
+          {},
+          SuccessMessage.OTP_RESENT,
+          HttpStatusMessage.OK,
+          HttpStatusCode.OK
+        )
+      );
+  } catch (error) {
+    return res
+      .status(HttpStatusCode.INTERNAL_SERVER_ERROR)
+      .json(
+        errorResponse(
+          error,
+          ExceptionMessage.INTERNAL_SERVER_ERROR,
+          HttpStatusMessage.INTERNAL_SERVER_ERROR,
+          HttpStatusCode.INTERNAL_SERVER_ERROR
+        )
+      );
+  }
+};
 // Controller for verifying user's email using OTP
 export const verifyEmail = async (req, res) => {
   try {
@@ -428,6 +502,7 @@ export const resetPassword = async (req, res) => {
   }
 };
 
+// Controller for user logout
 export const logout = async (req, res) => {
   try {
     const { email } = req.body;
